@@ -53,20 +53,6 @@ struct QuizView: View {
                 }
 
                 Spacer()
-
-                //            if viewModel.showResult {
-                //                Text(viewModel.userGotItRight ? "🎉 Correct!" : "❌ It's
-                //                \(viewModel.correctAnswer.capitalized)")
-                //                    .font(.headline)
-                //                    .padding()
-                //
-                //                Button("Next Question") {
-                //                    Task {
-                //                        await viewModel.loadNewQuestion()
-                //                    }
-                //                }
-                //                .padding()
-                //            }
             }
         }
 

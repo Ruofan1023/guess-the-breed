@@ -33,13 +33,14 @@ class DogAPIService: DogAPIServiceProtocol {
     static let shared = DogAPIService()
     
     private let network: NetworkProtocol
-    
+    private let baseURLStr: String = "https://dog.ceo"
+
     init(network: NetworkProtocol = Network.shared) {
         self.network = network
     }
     
     func fetchBreedsList() async -> Result<[String], ServiceError> {
-        let url = URL(string: "https://dog.ceo/api/breeds/list/all")!
+        let url = URL(string: "\(baseURLStr)/api/breeds/list/all")!
         let response: Result<BreedsListResponse, NetworkError> = await network.fetch(from: url)
         
         guard let breedsResponse = try? response.get() else {
@@ -79,9 +80,9 @@ class DogAPIService: DogAPIServiceProtocol {
         let urlString: String
         
         if components.count == 1 {
-            urlString = "https://dog.ceo/api/breed/\(components[0])/images/random"
+            urlString = "\(baseURLStr)/api/breed/\(components[0])/images/random"
         } else if components.count == 2 {
-            urlString = "https://dog.ceo/api/breed/\(components[0])/\(components[1])/images/random"
+            urlString = "\(baseURLStr)/api/breed/\(components[0])/\(components[1])/images/random"
         } else {
             return nil
         }

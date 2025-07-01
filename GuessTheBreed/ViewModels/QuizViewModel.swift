@@ -17,18 +17,29 @@ final class QuizViewModel: ObservableObject {
     @Published private(set) var userGotItRight: Bool = false
 
     private let service: DogAPIServiceProtocol
+    private var breeds: [String]? = nil
 
     init(service: DogAPIServiceProtocol) {
         self.service = service
+    }
+
+    private func loadBreedsIfNeeded() async -> [String]? {
+        if let breeds = breeds {
+            return breeds
+        }
+        guard case let .success(fetchedBreeds) = await service.fetchBreedsList(),
+              fetchedBreeds.count >= 4 else {
+            return nil
+        }
+        self.breeds = fetchedBreeds
+        return fetchedBreeds
     }
 
     func loadNewQuestion() async {
         isLoading = true
         defer { isLoading = false }
 
-        guard case let .success(breeds) = await service.fetchBreedsList(),
-              breeds.count >= 4
-        else {
+        guard let breeds = await loadBreedsIfNeeded(), breeds.count >= 4 else {
             options = []
             imageURL = nil
             return

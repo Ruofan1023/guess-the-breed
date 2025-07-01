@@ -7,7 +7,6 @@
 import SwiftUI
 
 struct ResultOverlay: View {
-    @State private var showConfetti = false
     @State private var scale = 0.1
     let onContinue: () -> Void
     private var isSuccess: Bool
@@ -33,8 +32,6 @@ struct ResultOverlay: View {
 
                         Text("🎉")
                             .font(.system(size: 50))
-                            .scaleEffect(scale)
-                            .animation(.spring(response: 0.5, dampingFraction: 0.6), value: scale)
                     }
 
                     VStack(spacing: 8) {
@@ -54,8 +51,6 @@ struct ResultOverlay: View {
 
                         Text("😢")
                             .font(.system(size: 50))
-                            .scaleEffect(scale)
-                            .animation(.spring(response: 0.5, dampingFraction: 0.6), value: scale)
                     }
 
                     VStack(spacing: 8) {
@@ -86,7 +81,7 @@ struct ResultOverlay: View {
             .cornerRadius(20)
             .shadow(radius: 20)
             .scaleEffect(scale)
-            .animation(.spring(response: 0.6, dampingFraction: 0.8), value: scale)
+            .animation(.spring, value: scale)
         }
         .onAppear {
             scale = 1.0

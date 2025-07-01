@@ -13,7 +13,7 @@ final class QuizViewModel: ObservableObject {
     @Published private(set) var options: [String] = []
     @Published private(set) var correctAnswer: String = ""
     @Published private(set) var isLoading = false
-    @Published var showResult: Bool = false
+    @Published private(set) var showResult: Bool = false
     @Published private(set) var userGotItRight: Bool = false
 
     private let service: DogAPIServiceProtocol
